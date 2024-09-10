@@ -36,7 +36,7 @@ def get_gpu_info():
         mem_info = pynvml.nvmlDeviceGetMemoryInfo(handle)
         gpu_info.append({
             'index': i,
-            'name': pynvml.nvmlDeviceGetName(handle).decode('utf-8'),
+            'name': pynvml.nvmlDeviceGetName(handle) if isinstance(pynvml.nvmlDeviceGetName(handle), str) else pynvml.nvmlDeviceGetName(handle).decode('utf-8'),
             'utilization': util.gpu,
             'memory': {
                 'total': mem_info.total,
