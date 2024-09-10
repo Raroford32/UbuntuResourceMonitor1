@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "repl-nix-ubunturesourcemonitor2465"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+flask = "^3.0.3"
+pynvml = "^11.5.3"
+flask-basicauth = "^0.2.0"
+psutil = "^6.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

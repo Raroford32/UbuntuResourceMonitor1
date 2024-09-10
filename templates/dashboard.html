@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Monitoring Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>System Monitoring Dashboard</h1>
+        <div class="dashboard">
+            <div class="card" id="cpu-card">
+                <h2>CPU Usage</h2>
+                <div class="progress-bar">
+                    <div class="progress-bar-fill" style="width: 0%"></div>
+                </div>
+                <p class="cpu-usage">0%</p>
+                <div class="cpu-details"></div>
+            </div>
+            <div class="card" id="ram-card">
+                <h2>RAM Usage</h2>
+                <div class="progress-bar">
+                    <div class="progress-bar-fill" style="width: 0%"></div>
+                </div>
+                <p class="ram-usage">0%</p>
+                <div class="ram-details"></div>
+            </div>
+            <div class="card" id="gpu-card">
+                <h2>GPU Usage</h2>
+                <div class="gpu-details"></div>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>
