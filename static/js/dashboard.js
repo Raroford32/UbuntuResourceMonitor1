@@ -2,15 +2,8 @@ function updateDashboard(data) {
     // Update CPU information
     const cpuCard = document.getElementById('cpu-card');
     const cpuPercent = data.cpu.percent;
-    const cpuAvg = cpuPercent.reduce((a, b) => a + b, 0) / cpuPercent.length;
-    cpuCard.querySelector('.progress-bar-fill').style.width = `${cpuAvg}%`;
-    cpuCard.querySelector('.cpu-usage').textContent = `${cpuAvg.toFixed(1)}%`;
-
-    let cpuDetails = '';
-    for (let i = 0; i < cpuPercent.length; i++) {
-        cpuDetails += `Core ${i}: ${cpuPercent[i].toFixed(1)}% (${data.cpu.freq[i].current.toFixed(0)} MHz)<br>`;
-    }
-    cpuCard.querySelector('.cpu-details').innerHTML = cpuDetails;
+    cpuCard.querySelector('.progress-bar-fill').style.width = `${cpuPercent}%`;
+    cpuCard.querySelector('.cpu-usage').textContent = `${cpuPercent.toFixed(1)}%`;
 
     // Update RAM information
     const ramCard = document.getElementById('ram-card');
@@ -31,20 +24,21 @@ function updateDashboard(data) {
     const gpuCard = document.getElementById('gpu-card');
     if (data.gpu) {
         let gpuDetails = '';
+        let totalUtilization = 0;
         data.gpu.forEach(gpu => {
+            totalUtilization += gpu.utilization;
             const gpuMemTotal = gpu.memory.total / (1024 * 1024 * 1024);
             const gpuMemUsed = gpu.memory.used / (1024 * 1024 * 1024);
-            const gpuMemFree = gpu.memory.free / (1024 * 1024 * 1024);
             gpuDetails += `
                 GPU ${gpu.index}: ${gpu.name}<br>
                 Utilization: ${gpu.utilization}%<br>
                 Memory: ${gpuMemUsed.toFixed(2)} GB / ${gpuMemTotal.toFixed(2)} GB<br>
-                <div class="progress-bar">
-                    <div class="progress-bar-fill" style="width: ${gpu.utilization}%"></div>
-                </div>
                 <br>
             `;
         });
+        const averageUtilization = totalUtilization / data.gpu.length;
+        gpuCard.querySelector('.progress-bar-fill').style.width = `${averageUtilization}%`;
+        gpuCard.querySelector('.gpu-usage').textContent = `${averageUtilization.toFixed(1)}%`;
         gpuCard.querySelector('.gpu-details').innerHTML = gpuDetails;
         gpuCard.style.display = 'block';
     } else {

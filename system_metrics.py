@@ -7,11 +7,11 @@ except:
     GPU_AVAILABLE = False
 
 def get_cpu_info():
-    cpu_percent = psutil.cpu_percent(interval=1, percpu=True)
-    cpu_freq = psutil.cpu_freq(percpu=True)
+    cpu_percent = psutil.cpu_percent(interval=1)
+    cpu_freq = psutil.cpu_freq()
     return {
         'percent': cpu_percent,
-        'freq': [{'current': f.current, 'min': f.min, 'max': f.max} for f in cpu_freq]
+        'freq': {'current': cpu_freq.current, 'min': cpu_freq.min, 'max': cpu_freq.max}
     }
 
 def get_ram_info():
